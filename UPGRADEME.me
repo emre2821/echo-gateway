@@ -1,0 +1,11 @@
+# Repository Upgrade Notes
+
+This project is a Next.js 15.5.7 application that demonstrates an OpenAI Apps SDK + MCP integration. When upgrading dependencies or build tooling, use these guardrails:
+
+- **Runtime & framework versions**: `next@15.5.7`, `react@19.1.0`, and `react-dom@19.1.0` are currently aligned. Upgrade them together and rerun `npm run build` or `pnpm build` (both use Turbopack) to catch RSC/client boundary regressions.
+- **MCP/server tooling**: The MCP route (`app/mcp/route.ts`) relies on `@modelcontextprotocol/sdk` and `mcp-handler`. Verify any SDK API changes against the route’s `createMcpHandler` usage and the metadata passed to OpenAI.
+- **Asset/base URL handling**: `baseUrl.ts` and `next.config.ts` coordinate asset prefixes for iframe rendering. After changing hosting assumptions or environment variables, confirm assets still load from the expected origin.
+- **TypeScript/Tailwind**: Tailwind v4 (via `@tailwindcss/postcss`) and TypeScript v5 are configured. If upgrading Tailwind, check `app/globals.css` and PostCSS config for breaking changes.
+- **Cross-origin behavior**: `middleware.ts` sets CORS headers for RSC fetches. Keep that middleware aligned with any hosting or routing changes to avoid iframe navigation failures.
+
+Always run a full build before shipping upgrades, and prefer incremental upgrades (one major dependency family at a time) to simplify rollback.

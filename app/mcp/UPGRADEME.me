@@ -1,0 +1,6 @@
+# `app/mcp/` upgrade notes
+
+- **SDK compatibility**: When upgrading `@modelcontextprotocol/sdk` or `mcp-handler`, confirm `createMcpHandler` signatures and the shape of `server.registerResource`/`server.registerTool` metadata (`openai/*` keys) remain valid.
+- **Template fetching**: `getAppsSdkCompatibleHtml` pulls the homepage HTML via `baseURL`. If routing or asset prefixing changes, adjust the fetch path or content wrapper so the resource still renders correctly in ChatGPT.
+- **Tool/resource alignment**: Ensure the `templateUri` used in resource registration matches the `_meta["openai/outputTemplate"]` returned by the tool. Divergence will break widget rendering.
+- **Input validation**: Tool inputs are validated with Zod. Expand the schemas carefully when adding arguments, and keep error handling user-friendly for ChatGPT outputs.

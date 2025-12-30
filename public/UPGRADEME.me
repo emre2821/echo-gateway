@@ -1,0 +1,5 @@
+# `public/` upgrade notes
+
+- Keep filenames stable when referenced by `next/image` or `<Image>` components in `app/page.tsx`; renaming assets requires updating those imports.
+- When adding new assets, prefer SVG for small footprint and ensure paths are relative (no leading `/public`) when used with Next.js.
+- If asset hosting changes (e.g., CDN rewrites), verify `assetPrefix` in `next.config.ts` still points to the correct origin for iframe usage.
