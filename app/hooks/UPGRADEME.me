@@ -1,0 +1,6 @@
+# `app/hooks/` upgrade notes
+
+- **OpenAI Apps SDK changes**: If the `window.openai` surface changes, update `types.ts` first and then review every hook to ensure parameter/return types and fallbacks remain correct.
+- **Event contracts**: `useOpenAIGlobal` listens for `openai:set_globals`. Keep the event name and payload shape in sync with the host; a mismatch will silently break reactivity.
+- **Client boundaries**: Hooks assume they run on the client. When refactoring imports, keep `"use client"` directives on consuming components to avoid hydration/runtime errors.
+- **Error handling**: The hooks intentionally fail softly (returning null/Promise.resolve) when not in ChatGPT. Preserve these fallbacks so the app stays functional in local/browser previews.

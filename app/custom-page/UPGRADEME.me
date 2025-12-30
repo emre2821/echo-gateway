@@ -1,0 +1,5 @@
+# `app/custom-page/` upgrade notes
+
+- Keep the component as a client component if it needs access to `window` or `window.openai` in future iterations.
+- When adjusting styling, ensure Tailwind classes you use exist in the current Tailwind version configured in `globals.css`.
+- If you add additional navigation targets, verify they resolve correctly within the App Router and do not bypass the iframe-safe link handling set up in `layout.tsx`.
