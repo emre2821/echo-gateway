@@ -1,0 +1,146 @@
+{{!-- MCP Server Main Template --}}
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import {
+  CallToolRequestSchema,
+  McpError,
+  ErrorCode,
+  ListToolsRequestSchema,
+} from '@modelcontextprotocol/sdk/types.js';
+import { z } from 'zod';
+
+{{#each tools}}
+{{#if this.parameters}}
+const {{camelCase this.name}}Schema = z.object({
+  {{#each this.parameters}}
+  {{@key}}: {{this.type}}().describe({{#if this.description}}'{{this.description}}'{{/if}}){{#unless @last}},{{/unless}}
+  {{/each}}
+});
+{{/if}}
+{{/each}}
+
+class {{pascalCase server.name}}Server {
+  private server: Server;
+
+  constructor() {
+    this.server = new Server(
+      {
+        name: '{{server.name}}',
+        version: '{{server.version}}',
+      },
+      {
+        capabilities: {
+          tools: {},
+        },
+      }
+    );
+
+    this.setupToolHandlers();
+    this.setupErrorHandling();
+  }
+
+  private setupErrorHandling(): void {
+    this.server.onerror = (error) => {
+      console.error('[MCP Error]', error);
+    };
+
+    process.on('SIGINT', async () => {
+      await this.server.close();
+      process.exit(0);
+    });
+  }
+
+  private setupToolHandlers(): void {
+    this.server.setRequestHandler(ListToolsRequestSchema, async () => {
+      return {
+        tools: [
+          {{#each tools}}
+          {
+            name: '{{this.name}}',
+            description: '{{this.description}}',
+            inputSchema: {{#if this.parameters}}zodToJsonSchema({{camelCase this.name}}Schema){{else}}{ type: 'object', properties: {} }{{/if}},
+            {{#if this.annotations}}
+            annotations: {
+              {{#each this.annotations}}
+              {{@key}}: {{this}}{{#unless @last}},{{/unless}}
+              {{/each}}
+            }{{/if}}
+          }{{#unless @last}},{{/unless}}
+          {{/each}}
+        ],
+      };
+    });
+
+    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+      const { name, arguments: args } = request.params;
+
+      try {
+        {{#each tools}}
+        if (name === '{{this.name}}') {
+          {{#if this.parameters}}
+          const validatedArgs = {{camelCase this.name}}Schema.parse(args);
+          return await this.handle{{pascalCase this.name}}(validatedArgs);
+          {{else}}
+          return await this.handle{{pascalCase this.name}}();
+          {{/if}}
+        }
+        {{/each}}
+
+        throw new McpError(
+          ErrorCode.MethodNotFound,
+          `Unknown tool: ${name}`
+        );
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new McpError(
+            ErrorCode.InvalidParams,
+            `Invalid parameters: ${error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ')}`
+          );
+        }
+        throw error;
+      }
+    });
+  }
+
+  {{#each tools}}
+  private async handle{{pascalCase this.name}}({{#if this.parameters}}args: z.infer<typeof {{camelCase this.name}}Schema>{{/if}}): Promise<any> {
+    {{#if ../safety.requireUserApproval}}
+    // Safety check: Require user approval for this operation
+    console.log(`[SAFETY] Executing tool: {{this.name}} with args:`, {{#if this.parameters}}args{{else}}{}{{/if}});
+    {{/if}}
+
+    {{#if ../safety.enableLogging}}
+    console.log(`[EXECUTE] {{this.name}}`, {{#if this.parameters}}args{{else}}{}{{/if}});
+    {{/if}}
+
+    try {
+      {{#if this.parameters}}
+      const { {{#each this.parameters}}{{@key}}{{#unless @last}}, {{/unless}}{{/each}} } = args;
+      {{/if}}
+
+      // User-provided handler implementation
+      {{{this.handler}}}
+
+    } catch (error) {
+      {{#if ../safety.enableLogging}}
+      console.error(`[ERROR] {{this.name}} failed:`, error);
+      {{/if}}
+      throw error;
+    }
+  }
+  {{/each}}
+
+  async run(): Promise<void> {
+    const transport = new StdioServerTransport();
+    await this.server.connect(transport);
+    console.error('{{server.name}} MCP server running on stdio');
+  }
+}
+
+const server = new {{pascalCase server.name}}Server();
+server.run().catch(console.error);
+
+// Helper function to convert Zod schema to JSON schema
+function zodToJsonSchema(schema: z.ZodSchema): any {
+  return schema.parse;
+}

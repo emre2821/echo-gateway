@@ -1,0 +1,32 @@
+{
+  "name": "{{server.name}}",
+  "version": "{{server.version}}",
+  "description": "{{server.description}}",
+  "main": "dist/index.js",
+  "bin": {
+    "{{kebabCase server.name}}": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "jest"
+  },
+  "keywords": ["mcp", "model-context-protocol", "server"{{#each tools}}, "{{this.name}}"{{/each}}],
+  "author": "{{#if server.author}}{{server.author}}{{else}}MCP Server Creator{{/if}}",
+  "license": "{{#if server.license}}{{server.license}}{{else}}MIT{{/if}}",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.5.0",
+    "@types/jest": "^29.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
