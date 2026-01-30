@@ -1,0 +1,97 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, world!
+  mcp_tags:
+    - MCP
+    - permissions
+    - modular
+    - cloud
+    - local
+  last_node_id: 12
+  mcp_nodes:
+    - id: perm-system-overhaul
+      content: "Analyze current permission system and implement granular permission levels: Always Allow All, Allow All for this Session, Allow This Action for this Session, Decline"
+      priority: high
+      status: pending
+      dependencies: []
+    - id: unified-config
+      content: "Create unified configuration system that works across all MCP server implementations"
+      priority: high
+      status: pending
+      dependencies: []
+    - id: session-management
+      content: "Implement proper session management with time-based permission expiration"
+      priority: high
+      status: pending
+      dependencies:
+        - perm-system-overhaul
+    - id: modular-tools
+      content: "Design modular tool registration system for easy tool/rule edits"
+      priority: high
+      status: pending
+      dependencies:
+        - unified-config
+    - id: cloud-deployment
+      content: "Create cloud deployment configuration with secure authentication"
+      priority: medium
+      status: pending
+      dependencies:
+        - unified-config
+        - perm-system-overhaul
+    - id: local-dev-setup
+      content: "Implement local development environment with hot reload capabilities"
+      priority: medium
+      status: pending
+      dependencies:
+        - unified-config
+    - id: audit-system
+      content: "Create permission audit trail and logging system"
+      priority: medium
+      status: pending
+      dependencies:
+        - perm-system-overhaul
+    - id: api-gateway
+      content: "Build unified API gateway that can route to different MCP implementations"
+      priority: medium
+      status: pending
+      dependencies:
+        - unified-config
+        - modular-tools
+    - id: tool-sandboxing
+      content: "Implement tool isolation and sandboxing for security"
+      priority: medium
+      status: pending
+      dependencies:
+        - modular-tools
+        - perm-system-overhaul
+    - id: testing-framework
+      content: "Create comprehensive testing suite for permission system and tool functionality"
+      priority: low
+      status: pending
+      dependencies:
+        - perm-system-overhaul
+        - modular-tools
+    - id: documentation
+      content: "Write detailed documentation for deployment, configuration, and usage"
+      priority: low
+      status: pending
+      dependencies:
+        - cloud-deployment
+        - local-dev-setup
+    - id: performance-optimization
+      content: "Optimize performance for concurrent tool execution and permission checks"
+      priority: low
+      status: pending
+      dependencies:
+        - api-gateway
+        - tool-sandboxing
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true

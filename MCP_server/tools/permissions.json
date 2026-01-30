@@ -1,0 +1,25 @@
+{
+  "permissions": {},
+  "requests": {
+    "d0f78c60b777446d86d1609c723387a9": {
+      "action": "create_file",
+      "target": "C:\\Users\\emmar\\OneDrive\\Documents\\Obsidian Vault\\EdenOS\\08_DevTools\\SDK\\MCP_Server\\test.txt",
+      "requester": "agent",
+      "created_at": 1765620614.8029394
+    }
+  },
+  "allowed_paths": [],
+  "audit": [
+    {
+      "id": "f98a34915357463db7c745d77f08073f",
+      "event": "request_created",
+      "details": {
+        "request_id": "d0f78c60b777446d86d1609c723387a9",
+        "action": "create_file",
+        "target": "C:\\Users\\emmar\\OneDrive\\Documents\\Obsidian Vault\\EdenOS\\08_DevTools\\SDK\\MCP_Server\\test.txt",
+        "requester": "agent"
+      },
+      "ts": 1765620614.8252163
+    }
+  ]
+}

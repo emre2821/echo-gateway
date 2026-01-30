@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "eden-universal": {
+      "command": "node",
+      "args": [
+        "C:\\Eden_Codeblocks\\Eden_CodeBlocks\\EdenOS_Origin\\EdenOS_Origin\\MCP_Server\\UniversalMCP\\server.js"
+      ]
+    }
+  }
+}

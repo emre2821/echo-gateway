@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "eden-context-windows": {
+      "command": "node",
+      "args": [
+        "c:\\Eden_Codeblocks\\Eden_CodeBlocks\\CascadeProjects\\MCP_server\\eden-context-window-mcp\\src\\index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "eden-llm-context": {
+      "command": "node",
+      "args": [
+        "c:\\Eden_Codeblocks\\Eden_CodeBlocks\\CascadeProjects\\MCP_server\\eden-llm-context\\src\\index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": "3030"
+      }
+    },
+    "eden-mcp-forge": {
+      "command": "node",
+      "args": [
+        "c:\\Eden_Codeblocks\\Eden_CodeBlocks\\CascadeProjects\\MCP_server\\eden-mcp-forge\\dist\\cli.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "windows-mcp": {
+      "command": "windows-mcp",
+      "args": [],
+      "env": {
+        "ANONYMIZED_TELEMETRY": "false"
+      }
+    }
+  }
+}

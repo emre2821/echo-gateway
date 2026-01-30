@@ -39,4 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-/.windsurf
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.windsurf/rules/snyk_rules.md
+.prettierrc
+eden-mcp-forge/claude_desktop_config.json
+/packages/eden-mcp-forge/node_modules
+/packages
+windsurf-desktop.json
+.eslintrc.json
