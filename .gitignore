@@ -48,3 +48,9 @@ eden-mcp-forge/claude_desktop_config.json
 /packages
 windsurf-desktop.json
 .eslintrc.json
+/__pycache__
+/Archives
+/mcp/__pycache__
+Python_MCP_Servers/keys.json
+Python_MCP_Servers/MCP_Server/keys.json
+/UNUSED_OUTSIDE_STRUCTURE
