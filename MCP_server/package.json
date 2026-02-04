@@ -1,0 +1,44 @@
+{
+  "name": "universal-eden-mcp-server",
+  "version": "1.0.0",
+  "description": "Universal Eden MCP Server with context windows, CHAOS memory, and permissions",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "eden-mcp": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start-gateway": "node server-gateway.js",
+    "http": "node server.js --http",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "eden",
+    "ai",
+    "context-window"
+  ],
+  "author": "Dreamcatcher",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "chokidar": "^3.6.0",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.22.1",
+    "fs-extra": "^11.3.3",
+    "mammoth": "^1.11.0",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^2.4.5",
+    "uuid": "^9.0.1",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

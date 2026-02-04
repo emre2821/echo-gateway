@@ -1,0 +1,5 @@
+==== run_mcp debug 
+Time: Sat 12/13/2025 10:43:49.99
+Started run_mcp.bat 
+WorkingDir: C:\Users\emmar\OneDrive\Documents\Obsidian Vault\EdenOS\08_DevTools\SDK\MCP_Server 
+--------------------- 

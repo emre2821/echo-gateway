@@ -68,7 +68,9 @@ from .logging import eden_log
 __all__ = ["eden_log"]
 
 # mcp/server.py
+import functools
 import inspect
+import threading
 
 class Server:
     def __init__(self, name: str = "mcp-server"):
@@ -150,6 +152,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any, Callable
+import inspect
 
 @dataclass
 class TextContent:
@@ -209,7 +212,7 @@ def agent_ping(agent_name: str):
 # tools/chaos_tools.py
 # chaos_tools.py
 
-from . import eden_tool, TextContent
+from . import eden_tool, TextContent, JsonContent
 from typing import Dict, Any
 
 @eden_tool()
@@ -269,7 +272,7 @@ def chaos_echo(text: str):
     return [TextContent(type="text", text=text)]
 
 # tools/filesystem_tools.py
-from . import eden_tool
+from . import eden_tool, TextContent, JsonContent
 import os
 
 @eden_tool()
@@ -306,7 +309,8 @@ def read_file(path: str):
 # tools/permissions.json. All read/write/move/rename operations
 # must be requested and then explicitly granted (by a human).
 
-from . import eden_tool
+from . import eden_tool, TextContent, JsonContent
+import os
 import shutil
 import json
 import uuid
@@ -672,6 +676,7 @@ This is NOT production-ready; it's a starting point for a SaaS MVP.
 """
 from __future__ import annotations
 
+import json
 import os
 import traceback
 from flask import Flask, request, jsonify
@@ -777,9 +782,12 @@ creates an immediate permission entry in `permissions.json`.
 WARNING: This bridge will grant permissions immediately by default.
 Run it only on localhost and understand the security implications.
 """
+import json
 import os
+import uuid
+import time
 import logging
-from flask import Flask
+from flask import Flask, request, jsonify
 
 ROOT = os.path.dirname(__file__)
 PERMISSIONS_FILE = os.path.join(ROOT, 'permissions.json')

@@ -1,8 +1,6 @@
 import functools
-
 import inspect
 import threading
-
 
 class Server:
     def __init__(self, name: str = "mcp-server"):
@@ -26,7 +24,6 @@ class Server:
                 time.sleep(1)
         except KeyboardInterrupt:
                 print("\n[mcp stub] Server stopped.")
-
 
 def tool(*dargs, **dkwargs):
     """A decorator that marks functions as MCP tools.

@@ -1,0 +1,111 @@
+{
+  "gateway": {
+    "name": "Universal Eden MCP Gateway",
+    "version": "1.0.0",
+    "primary": true,
+    "mode": "stdio",
+    "host": "localhost",
+    "http_port": 3001,
+    "ws_port": 3002
+  },
+  "servers": {
+    "universal_eden": {
+      "name": "Universal Eden MCP Server",
+      "enabled": true,
+      "path": "./",
+      "type": "node",
+      "command": "node server.js",
+      "permissions": {
+        "levels": [
+          "always_allow_all",
+          "allow_session",
+          "allow_action_session",
+          "decline"
+        ],
+        "default": "allow_action_session",
+        "expiration": {
+          "session": 3600000,
+          "action": 300000
+        }
+      }
+    },
+    "windows_mcp": {
+      "name": "Windows MCP",
+      "enabled": true,
+      "path": "../Windows-MCP copy",
+      "type": "python",
+      "command": "uv run windows-mcp",
+      "permissions": {
+        "inherit": "universal_eden"
+      }
+    },
+    "filesystem_tools": {
+      "name": "Filesystem Tools",
+      "enabled": true,
+      "path": "./tools",
+      "type": "python",
+      "permissions": {
+        "inherit": "universal_eden"
+      }
+    }
+  },
+  "routing": {
+    "default_server": "universal_eden",
+    "tool_mapping": {
+      "file_system": [
+        "universal_eden",
+        "filesystem_tools"
+      ],
+      "desktop_automation": [
+        "universal_eden",
+        "windows_mcp"
+      ],
+      "ui_interaction": [
+        "universal_eden",
+        "windows_mcp"
+      ],
+      "process_management": [
+        "universal_eden",
+        "windows_mcp"
+      ],
+      "memory_management": [
+        "universal_eden"
+      ],
+      "permissions": [
+        "universal_eden"
+      ]
+    },
+    "fallback_order": [
+      "universal_eden",
+      "windows_mcp",
+      "filesystem_tools"
+    ]
+  },
+  "permissions": {
+    "audit": {
+      "enabled": true,
+      "max_entries": 1000,
+      "rotation": true
+    },
+    "sessions": {
+      "storage": "./sessions.json",
+      "cleanup_interval": 300000
+    },
+    "isolation": {
+      "enabled": true,
+      "sandbox": {
+        "filesystem": true,
+        "network": false,
+        "process": true
+      }
+    }
+  },
+  "development": {
+    "hot_reload": true,
+    "watch_paths": [
+      "./tools",
+      "../Windows-MCP copy/src"
+    ],
+    "debug": true
+  }
+}
