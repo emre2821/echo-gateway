@@ -1,0 +1,19 @@
+{
+  "contexts": {},
+  "chaos": {
+    "resonances": [],
+    "anchors": [],
+    "emotionalState": "neutral",
+    "consentChains": []
+  },
+  "permissions": {
+    "granted": {
+      ".obsidian": true,
+      "Daemon_Core_Agents_Final": true,
+      "DreamTree_2026-01-09_13-44-36.txt": true,
+      "Rhea": true
+    },
+    "activeContext": null,
+    "lastUpdate": 1768102079610
+  }
+}

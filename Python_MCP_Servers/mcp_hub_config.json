@@ -1,0 +1,64 @@
+{
+  "servers": {
+    "eden-context-window": {
+      "name": "Eden Context Window MCP",
+      "command": "node",
+      "args": [
+        "eden-context-window-mcp/src/index.js"
+      ],
+      "port": 3001,
+      "enabled": true,
+      "auto_start": true,
+      "dependencies": [],
+      "description": "Context window management and symbolic memory"
+    },
+    "eden-llm-context": {
+      "name": "Eden LLM Context MCP",
+      "command": "node",
+      "args": [
+        "eden-llm-context/src/index.js"
+      ],
+      "port": 3002,
+      "enabled": true,
+      "auto_start": true,
+      "dependencies": [],
+      "description": "LLM context management and processing"
+    },
+    "eden-mcp-forge": {
+      "name": "Eden MCP Forge",
+      "command": "node",
+      "args": [
+        "eden-mcp-forge/dist/cli.js"
+      ],
+      "port": 3003,
+      "enabled": true,
+      "auto_start": false,
+      "dependencies": [],
+      "description": "MCP server development and forging tools"
+    },
+    "edenos-mcp-server": {
+      "name": "EdenOS MCP Server",
+      "command": "python",
+      "args": [
+        "edenos_mcp_server_bundle.py"
+      ],
+      "port": 3004,
+      "enabled": true,
+      "auto_start": false,
+      "dependencies": [],
+      "description": "EdenOS filesystem and system operations"
+    },
+    "browser-mcp-bridge": {
+      "name": "Browser MCP Bridge",
+      "command": "node",
+      "args": [
+        "browser-mcp-bridge.js"
+      ],
+      "port": 3005,
+      "enabled": true,
+      "auto_start": false,
+      "dependencies": [],
+      "description": "Browser automation and web interaction"
+    }
+  }
+}

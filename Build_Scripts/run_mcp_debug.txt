@@ -1,0 +1,5 @@
+==== run_mcp debug 
+Time: Sun 02/01/2026  8:12:09.97
+Started run_mcp.bat 
+WorkingDir: C:\Users\emmar\OneDrive\Desktop\Obsidian_Vault\GitHub\Eden_Gateway_MCP_Server\Build_Scripts 
+--------------------- 

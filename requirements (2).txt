@@ -1,0 +1,5 @@
+rich==13.4.2
+# The `mcp` package is expected to be provided by your MCP implementation.
+# For local development we include a small stub under the project so you
+# can run the server without an external `mcp` package.
+flask==2.3.2

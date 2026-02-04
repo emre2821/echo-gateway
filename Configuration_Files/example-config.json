@@ -1,0 +1,48 @@
+{
+  "server": {
+    "name": "example-calculator",
+    "version": "1.0.0",
+    "description": "An example MCP server for basic calculations",
+    "tools": [
+      {
+        "name": "add-numbers",
+        "description": "Adds two numbers together",
+        "parameters": {
+          "a": {
+            "type": "number",
+            "description": "First number",
+            "required": true
+          },
+          "b": {
+            "type": "number",
+            "description": "Second number",
+            "required": true
+          }
+        },
+        "annotations": {
+          "title": "Add Numbers",
+          "readOnlyHint": true
+        },
+        "handler": "const result = a + b;\nreturn {\n  content: [{ type: 'text', text: `The sum of ${a} and ${b} is ${result}` }]\n};"
+      }
+    ]
+  },
+  "safety": {
+    "requireUserApproval": true,
+    "allowedOperations": [
+      "math"
+    ],
+    "restrictedParameters": [
+      "password",
+      "token"
+    ],
+    "maxExecutionTime": 30,
+    "enableLogging": true
+  },
+  "output": {
+    "directory": "./example-server",
+    "packageManager": "npm",
+    "includeTests": true,
+    "includeDocs": true
+  }
+}

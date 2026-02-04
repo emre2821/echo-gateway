@@ -1,0 +1,30 @@
+{
+  "permissions": {},
+  "requests": {},
+  "audit": [
+    {
+      "id": "1bfd33a41e01464aaecf22dd084ec838",
+      "event": "server_started",
+      "details": {
+        "server": "eden-mcp-server-hub"
+      },
+      "ts": 1770232302.2104545
+    },
+    {
+      "id": "abb4869cf54f4253ab57bb20e1a6728c",
+      "event": "server_started",
+      "details": {
+        "server": "eden-mcp-server-hub"
+      },
+      "ts": 1770232501.0282443
+    },
+    {
+      "id": "c5acbe5725a74bdd8ceca583a1f9cf7a",
+      "event": "server_started",
+      "details": {
+        "server": "eden-mcp-server-hub"
+      },
+      "ts": 1770232672.8614068
+    }
+  ]
+}

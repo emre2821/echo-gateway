@@ -1,0 +1,6 @@
+# `app/` upgrade notes
+
+- **Next.js updates**: After bumping `next`, verify the App Router still renders correctly inside an iframe. Pay special attention to the custom history/fetch patches in `layout.tsx` and the `assetPrefix` set via `baseURL`.
+- **Client/server boundaries**: Components in this folder deliberately use `"use client"` where they depend on `window.openai`. Keep those directives intact or convert components carefully if changing how data flows from the MCP server.
+- **Navigation semantics**: The click handler in `layout.tsx` routes external links through `window.openai.openExternal`. If you alter link handling, ensure external navigation still works in ChatGPT’s sandbox.
+- **Styling**: Tailwind v4 is in use via `globals.css`. When upgrading Tailwind, confirm that the utility classes referenced by `page.tsx` and `custom-page/page.tsx` still exist or have equivalent replacements.

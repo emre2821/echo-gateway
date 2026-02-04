@@ -1,0 +1,46 @@
+{
+  "name": "eden-mcp-forge",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "An interactive MCP Server creator that helps users build custom MCP servers with safety and human-in-the-loop permissions",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-create": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "ts-node src/cli.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "server",
+    "creator",
+    "generator"
+  ],
+  "author": "eden-mcp-forge",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "inquirer": "^9.2.0",
+    "zod": "^3.22.0",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.1.0",
+    "handlebars": "^4.7.0",
+    "yargs": "^17.7.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.5.0",
+    "@types/jest": "^29.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

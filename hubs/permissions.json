@@ -1,0 +1,21 @@
+{
+	"permissions": {},
+	"requests": {},
+	"audit": [],
+	"allowed_paths": [
+		{
+			"path": "C:\\Users\\emmar\\CascadeProjects",
+			"read_only": false
+		},
+		"C:\\Users\\emmar\\OneDrive\\Desktop\\GitHub",
+		"D:\\"
+	],
+	"agents": {},
+	"exclusion_zones": [
+		"C:\\Windows",
+		"C:\\Program Files",
+		"C:\\Program Files (x86)",
+		"C:\\Users\\emmar\\Pictures",
+		"C:\\Users\\emmar\\OneDrive\\Pictures"
+	]
+}

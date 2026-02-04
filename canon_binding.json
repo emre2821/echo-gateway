@@ -1,0 +1,31 @@
+{
+  "canon_root": "d:/Obsidian_Vault/Eden_Gateway_MCP_Server",
+  "runtime_root": "d:/Obsidian_Vault/Eden_Gateway_MCP_Server/CLEAN_STRUCTURE/spark",
+  "governance_root": "d:/Obsidian_Vault/Eden_Gateway_MCP_Server/lore",
+  "project_name": "eden-gateway-mcp-server",
+  "project_version": "1.0.0",
+  "eden_trifold_zoning": {
+    "root": {
+      "purpose": "identity, memory, lore, ritual, governance",
+      "contains": ["lore", "rituals", "concepts", "research", "cosmology", "agent_myth_records"],
+      "rules": ["read-only by default", "never executed", "never auto-refactored", "can be indexed, summarized, and referenced"]
+    },
+    "spark": {
+      "purpose": "runtime engine and production systems",
+      "contains": ["applications", "agents", "src", "tests", "scripts", "services"],
+      "rules": ["must run", "must be auditable", "allowed to change", "versioned and test-bound"]
+    },
+    "delta": {
+      "purpose": "change-space and incubation zone",
+      "contains": ["experiments", "drafts", "prototypes", "rewrites", "abandoned_branches"],
+      "rules": ["never trusted as source of truth", "never a production dependency", "free to mutate or decay", "safe to fork, rewrite, or discard"]
+    }
+  },
+  "flow_constraint": "root → delta → spark",
+  "coherence_binding": {
+    "created": "2026-02-04T08:49:00Z",
+    "last_updated": "2026-02-04T08:49:00Z",
+    "binding_version": "1.0",
+    "compliance_score": 85
+  }
+}
