@@ -1,0 +1,28 @@
+{
+  "canon_root": "root",
+  "runtime_root": "spark", 
+  "governance_root": "root",
+  "project_name": "eden-gateway-mcp-server",
+  "version": "1.0.0",
+  "created": "2026-02-03",
+  "description": "EdenOS Gateway MCP Server - Unified bridge between external AI systems and EdenOS architecture",
+  "districts": {
+    "root": {
+      "purpose": "identity, memory, lore, ritual, governance",
+      "contains": ["lore", "rituals", "concepts", "research", "cosmology", "agent myth records"],
+      "rules": ["read-only by default", "never executed", "never auto-refactored", "can be indexed, summarized, and referenced"]
+    },
+    "spark": {
+      "purpose": "runtime engine and production systems", 
+      "contains": ["applications", "agents", "src", "tests", "scripts", "services"],
+      "rules": ["must run", "must be auditable", "allowed to change", "versioned and test-bound"]
+    },
+    "delta": {
+      "purpose": "change-space and incubation zone",
+      "contains": ["experiments", "drafts", "prototypes", "rewrites", "abandoned branches"],
+      "rules": ["never trusted as source of truth", "never a production dependency", "free to mutate or decay", "safe to fork, rewrite, or discard"]
+    }
+  },
+  "flow_constraint": "root → delta → spark",
+  "ethical_flags": ["preserve_lore_integrity", "prevent_unconsented_refactors", "no_runtime_from_root", "no_production_from_delta"]
+}

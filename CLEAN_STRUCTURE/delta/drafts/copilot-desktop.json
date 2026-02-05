@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "universal-eden": {
+      "command": "node",
+      "args": [
+        "c:\\Users\\emmar\\OneDrive\\Documents\\Obsidian Vault\\EdenOS\\08_DevTools\\SDK\\MCP_Server\\server.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "eden-context-windows": {
+      "command": "node",
+      "args": [
+        "c:\\Users\\emmar\\CascadeProjects\\eden-context-window-mcp\\src\\index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "windows-mcp": {
+      "command": "windows-mcp",
+      "args": [],
+      "env": {
+        "ANONYMIZED_TELEMETRY": "false"
+      }
+    }
+  }
+}
