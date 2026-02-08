@@ -252,7 +252,9 @@ registerTool({
     }
 
     const permId = generateId();
-    const expires = duration ? Date.now() + duration * 1000 : null;
+    const expires = duration === null || duration === undefined
+      ? null
+      : Date.now() + duration * 1000;
 
     state.permissions.granted[permId] = {
       ...req,
