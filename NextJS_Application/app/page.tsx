@@ -114,14 +114,6 @@ export default function Home() {
           >
             Visit another page
           </Link>
-          <a
-            href="https://vercel.com/templates/ai/chatgpt-app-with-next-js"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            Deploy on Vercel
-          </a>
         </div>
       </main>
     </div>
