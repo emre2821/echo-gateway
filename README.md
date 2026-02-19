@@ -45,11 +45,20 @@ MCP_Server/
 
 ## 🚀 Running the Server
 
-From this directory:
+From this directory (`/workspace/echo-gateway`):
 
-pip install -r requirements.txt
+pip install -r ./requirements.txt
 python server.py
 The server will run silently, waiting for MCP clients (like ChatGPT Dev Mode) to connect.
+
+> ⚠️ This repository contains multiple Python packages, each with its own `requirements.txt`.
+> Use the requirements file that matches the directory you are working in:
+>
+> - `./requirements.txt` → root gateway/server package in this folder
+> - `./hubs/requirements.txt` → hub implementation under `hubs/`
+> - `./MCP_Server_Hub/requirements.txt` → mirrored hub package
+> - `./edenos_mcp_server/requirements.txt` → standalone `edenos_mcp_server` package
+> - `./Python_MCP_Servers/*/requirements.txt` → Python packages in the archived/mirrored collection
 
 🛠️ Adding New Tools
 To add a new tool:
@@ -122,9 +131,25 @@ Start it locally:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r .\requirements.txt
 python http_api.py
 ```
+
+## Python implementation status (where to start)
+
+Because this workspace contains multiple overlapping Python MCP directories, use this guide:
+
+- **Actively maintained / primary start points**
+  - `./` (root gateway + HTTP API)
+  - `./hubs/` (current hub entrypoint)
+- **Supported mirrors / compatibility copies**
+  - `./MCP_Server_Hub/`
+  - `./edenos_mcp_server/`
+- **Legacy / reference snapshots (not primary for new work)**
+  - `./Python_MCP_Servers/` (historical mirrored Python MCP implementations)
+  - `./MCP_server/` and `./Documentation/` content that duplicates older structures
+
+If you're new to this repo, start with the root package or `hubs/` first, then use legacy/reference folders for comparison or migration context.
 
 The API listens on port 8766 by default and uses a simple API key in `keys.json`.
 By default a `dev-key` is created the first time the server runs. Use that value

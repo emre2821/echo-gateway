@@ -12,8 +12,12 @@ This MCP server combines tools from:
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+# from /workspace/echo-gateway/hubs
+pip install -r ./requirements.txt
 ```
+
+> ⚠️ In this mixed workspace, install from `hubs/requirements.txt` for the hub.
+> Do not use the root `requirements.txt` unless you are setting up the root gateway package.
 
 ## Usage
 
@@ -104,3 +108,12 @@ The server stores data in the following files:
 ## Author
 
 Cascade AI Assistant (EdenOS Bridge Persona)
+
+
+## Workspace directory status
+
+To reduce confusion across overlapping Python MCP folders:
+
+- **Actively maintained**: `hubs/` (primary hub entrypoint) and repository root (`/workspace/echo-gateway`).
+- **Compatibility mirrors**: `MCP_Server_Hub/`, `edenos_mcp_server/`.
+- **Legacy/reference**: `Python_MCP_Servers/` snapshots and older duplicated docs/structures.
