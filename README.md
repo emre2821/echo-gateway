@@ -1,140 +1,87 @@
-# Universal Eden MCP Server
+# echo-gateway
 
-A unified Model Context Protocol (MCP) server providing context windows, CHAOS memory, permissions, and auto-discovery capabilities.
+`echo-gateway` is a mixed Node.js + Python workspace for experimenting with MCP (Model Context Protocol) servers and a ChatGPT Apps SDK-style Next.js UI.
 
----
+This repository currently contains **multiple parallel implementations** (some duplicated under different folders) rather than a single clean package. This README reflects the repository as it exists today.
 
-## ✨ Overview
+## What is in this repo right now
 
-This MCP server acts as a **bridge layer** between external AI systems and the internal architecture of EdenOS.
-It exposes safe, sandboxed tools that AI clients can call through MCP to:
+### 1) Root Next.js app scaffold (`/`)
+The repo root has a Next.js project (`package.json`, `next.config.ts`, `middleware.ts`, `app/`, `public/`) plus a stdio MCP script at `scripts/mcp-stdio.js`.
 
-- Inspect or process files
-- Interact with Eden agents
-- Run CHAOS diagnostics
-- Trigger EdenOS utilities
-- Extend functionality through modular tools
+- `npm run dev|build|start|lint|format` are defined in the root `package.json`.
+- `baseUrl.ts` sets `BASE_URL`/`VERCEL_URL` logic.
+- `middleware.ts` adds permissive CORS headers.
+- `scripts/mcp-stdio.js` starts a stdio MCP server named `echo-gateway`.
 
-This server uses:
+> Note: the root app directory is incomplete for a standard App Router run (for example, no `app/layout.tsx` in root), and there is a fuller Next.js implementation under `NextJS_Application/`.
 
-- **stdio transport** (MCP standard)
-- **auto-discovery** of tools inside `tools/`
-- **@eden_tool** decorator for clean registration
-- **Rich-based logging** for Eden-style console output
+### 2) Fuller Next.js ChatGPT App implementation (`NextJS_Application/`)
+This directory includes a complete App Router structure with:
 
----
+- `app/layout.tsx` with `NextChatSDKBootstrap`
+- `app/mcp/route.ts` using `mcp-handler`
+- `app/page.tsx` and `app/custom-page/page.tsx`
 
-## 📁 Directory Structure
+If you are working on the ChatGPT Apps SDK web UI + MCP route pattern, this is currently the most complete Next.js implementation in the repository.
 
-MCP_Server/
-│
-├── server.py # core MCP server
-├── requirements.txt # dependencies
-│
-├── tools/ # tool modules auto-discovered by server.py
-│ ├── init.py
-│ ├── filesystem_tools.py
-│ ├── chaos_tools.py
-│ └── agent_tools.py
-│
-└── core/
-├── init.py
-└── logging.py
+### 3) Python MCP servers
+There are several Python MCP codebases, including:
 
----
+- `edenos_mcp_server/`
+- `hubs/` (including `hubs/mcp_server_hub.py`)
+- `MCP_Server_Hub/`
+- `Python_MCP_Servers/`
 
-## 🚀 Running the Server
+These provide MCP server/hub functionality, tool loading, and permission/audit-oriented workflows with overlapping scope.
 
-From this directory:
+## Top-level structure (high signal folders)
 
-pip install -r requirements.txt
-python server.py
-The server will run silently, waiting for MCP clients (like ChatGPT Dev Mode) to connect.
+- `app/` – root Next.js app pages/components (partial)
+- `NextJS_Application/` – fuller Next.js ChatGPT Apps SDK app
+- `scripts/` – utility scripts, including stdio MCP launcher
+- `edenos_mcp_server/` – standalone Python MCP server package
+- `hubs/` and `MCP_Server_Hub/` – Python MCP hub implementations
+- `Python_MCP_Servers/` – additional Python MCP server variants
+- `Documentation/`, `CLEAN_STRUCTURE/`, `lore/` – docs/planning/reference content
 
-🛠️ Adding New Tools
-To add a new tool:
+## Quick start
 
-Create a new *.py file inside tools/
+### Root Node workspace
+```bash
+npm install
+npm run dev
+```
 
-Write a function
+### Root stdio MCP server
+```bash
+node scripts/mcp-stdio.js
+```
 
-Decorate it with:
-
-@eden_tool()
-Ensure it returns MCP content objects such as:
-
-TextContent
-
-JsonContent
-
-Example:
-
-@eden_tool()
-def say_hello(name: str):
-    return [TextContent(type="text", text=f"Hello, {name}!")]
-Restart the server or use hot-reload (if enabled), and the tool becomes instantly available.
-
-🔒 Security Notes
-The server intentionally ships with:
-
-No file write tools
-
-No subprocess execution
-
-No shell access
-
-These can be added later inside a Zero-Trust wrapper
-(see: 10_Security/ and EdenOS RBAC guidelines).
-
-💡 Future Extensions
-Planned expansions include:
-
-Full CHAOS parser integration
-
-EdenOS CLI bridge
-
-LLM Router interface
-
-AgentBridge for dynamic persona calls
-
-MemoryTemple access (read-only or permissioned)
-
-DCA (Daemon Control Agent) wrappers
-
-🐾 Authoring Persona
-All MCP server files should include attribution under EdenOS metadata conventions:
-
-[AUTHOR] Dreamcatcher (EdenOS Bridge Persona)
-🌲 Status
-This MCP server is the official EdenOS DevMode integration point.
-It enables rapid tooling, debugging, and agentic automation with guaranteed stability.
-
-If you need new tool modules generated, just ask:
-
-“Add a tool for ___.”
-
-## HTTP API (development)
-
-This repository includes a minimal HTTP API that exposes MCP tools as JSON endpoints.
-
-Start it locally:
-
-```powershell
+### Python dependencies (root)
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate   # Windows PowerShell: .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python http_api.py
 ```
 
-The API listens on port 8766 by default and uses a simple API key in `keys.json`.
-By default a `dev-key` is created the first time the server runs. Use that value
-in the `X-API-Key` header when calling the API.
-
-### Docker
-
-Build and run the service with Docker:
-
-```powershell
-docker build -t eden-mcp .
-docker run -p 8766:8766 eden-mcp
+### Python hub example
+```bash
+cd hubs
+pip install -r requirements.txt
+python mcp_server_hub.py stdio
 ```
+
+## Repository status
+
+This repo appears to be an active consolidation workspace:
+
+- multiple MCP server variants coexist,
+- duplicated docs/readmes exist in different subtrees,
+- not every top-level project is fully wired together.
+
+For new work, it is usually best to choose one target implementation first (for example `NextJS_Application/` for Apps SDK UI work, or `edenos_mcp_server/`/`hubs/` for Python MCP backends) and treat other directories as reference/legacy unless needed.
+
+## Changelog
+
+See `CHANGELOG.md` for historical notes.
